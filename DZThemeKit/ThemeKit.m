@@ -61,6 +61,31 @@ ThemeKit *MyThemeKit;
     return val;
 }
 
+- (id)valueForKey:(NSString *)key
+{
+    id val = [super valueForKey:key];
+    
+    if (!val) {
+        val = [self valueForUndefinedKey:key];
+        
+        // since we're here, it's possible we have the P3 colour as well. Check
+        if ([val isKindOfClass:NSDictionary.class]) {
+            // check the device screenspace
+            
+            if ([val valueForKey:@"p3"] && UIApplication.sharedApplication.keyWindow.rootViewController.view.traitCollection.displayGamut == UIDisplayGamutP3) {
+                return [val valueForKey:@"p3"];
+            }
+            else
+                return [val valueForKey:@"rgb"];
+        }
+        
+        return val;
+        
+    }
+    
+    return val;
+}
+
 #pragma mark -
 
 - (void)loadColorsFromFile:(NSURL *)path
@@ -110,11 +135,15 @@ ThemeKit *MyThemeKit;
                     [setDict setObject:p3color forKey:@"p3"];
                 }
             }
+            
+            [strongSelf.additionals setValue:setDict.copy forKey:key];
         }
         
     }];
     
-    NSLog(@"%@", [self valueForKey:@"customColor"]);
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        NSLog(@"%@", [self valueForKey:@"tintColor"]);
+    });
     
 }
 
