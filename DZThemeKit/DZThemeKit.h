@@ -15,5 +15,5 @@ FOUNDATION_EXPORT double DZThemeKitVersionNumber;
 FOUNDATION_EXPORT const unsigned char DZThemeKitVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <DZThemeKit/PublicHeader.h>
-
+#import <DZThemeKit/ThemeKit.h>
 

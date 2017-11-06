@@ -1,0 +1,12 @@
+{
+    "backgroundColor": "#F8F9F9",
+    "textColor": "#00000087",
+    "subtextColor": "#00000054",
+    "titleColor": "#000000",
+    "borderColor": "#00000012",
+    "tintColor": {
+        "rgb": "#2979FF",
+        "p3": true
+    },
+    "customColor": "EE005"
+}

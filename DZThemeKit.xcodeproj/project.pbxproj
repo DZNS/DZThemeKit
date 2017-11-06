@@ -10,6 +10,20 @@
 		F06A6F901FB0698900D3A819 /* DZThemeKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F06A6F861FB0698900D3A819 /* DZThemeKit.framework */; };
 		F06A6F951FB0698900D3A819 /* DZThemeKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F06A6F941FB0698900D3A819 /* DZThemeKitTests.m */; };
 		F06A6F971FB0698900D3A819 /* DZThemeKit.h in Headers */ = {isa = PBXBuildFile; fileRef = F06A6F891FB0698900D3A819 /* DZThemeKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F06A6FA31FB069A000D3A819 /* ThemeKit.h in Headers */ = {isa = PBXBuildFile; fileRef = F06A6FA11FB069A000D3A819 /* ThemeKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F06A6FA41FB069A000D3A819 /* ThemeKit.m in Sources */ = {isa = PBXBuildFile; fileRef = F06A6FA21FB069A000D3A819 /* ThemeKit.m */; };
+		F06A6FA61FB06AFF00D3A819 /* colours.json in Resources */ = {isa = PBXBuildFile; fileRef = F06A6FA51FB06AFF00D3A819 /* colours.json */; };
+		F06A6FA91FB06B6000D3A819 /* UIColor+HexAlpha.h in Headers */ = {isa = PBXBuildFile; fileRef = F06A6FA71FB06B6000D3A819 /* UIColor+HexAlpha.h */; };
+		F06A6FAA1FB06B6000D3A819 /* UIColor+HexAlpha.m in Sources */ = {isa = PBXBuildFile; fileRef = F06A6FA81FB06B6000D3A819 /* UIColor+HexAlpha.m */; };
+		F06A6FAD1FB06FB900D3A819 /* HexAlphaTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F06A6FAC1FB06FB900D3A819 /* HexAlphaTests.m */; };
+		F06A6FB61FB07FCF00D3A819 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F06A6FB51FB07FCF00D3A819 /* AppDelegate.m */; };
+		F06A6FB91FB07FCF00D3A819 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F06A6FB81FB07FCF00D3A819 /* ViewController.m */; };
+		F06A6FBC1FB07FCF00D3A819 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F06A6FBA1FB07FCF00D3A819 /* Main.storyboard */; };
+		F06A6FBE1FB07FCF00D3A819 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F06A6FBD1FB07FCF00D3A819 /* Assets.xcassets */; };
+		F06A6FC11FB07FCF00D3A819 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F06A6FBF1FB07FCF00D3A819 /* LaunchScreen.storyboard */; };
+		F06A6FC41FB07FCF00D3A819 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F06A6FC31FB07FCF00D3A819 /* main.m */; };
+		F06A6FCC1FB0800900D3A819 /* DZThemeKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F06A6F861FB0698900D3A819 /* DZThemeKit.framework */; };
+		F06A6FCD1FB0800900D3A819 /* DZThemeKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F06A6F861FB0698900D3A819 /* DZThemeKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -20,7 +34,28 @@
 			remoteGlobalIDString = F06A6F851FB0698900D3A819;
 			remoteInfo = DZThemeKit;
 		};
+		F06A6FC81FB07FED00D3A819 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F06A6F7D1FB0698900D3A819 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F06A6F851FB0698900D3A819;
+			remoteInfo = DZThemeKit;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		F06A6FCE1FB0800900D3A819 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				F06A6FCD1FB0800900D3A819 /* DZThemeKit.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		F06A6F861FB0698900D3A819 /* DZThemeKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DZThemeKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -29,6 +64,22 @@
 		F06A6F8F1FB0698900D3A819 /* DZThemeKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DZThemeKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F06A6F941FB0698900D3A819 /* DZThemeKitTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DZThemeKitTests.m; sourceTree = "<group>"; };
 		F06A6F961FB0698900D3A819 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F06A6FA11FB069A000D3A819 /* ThemeKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ThemeKit.h; sourceTree = "<group>"; };
+		F06A6FA21FB069A000D3A819 /* ThemeKit.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ThemeKit.m; sourceTree = "<group>"; };
+		F06A6FA51FB06AFF00D3A819 /* colours.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = colours.json; sourceTree = "<group>"; };
+		F06A6FA71FB06B6000D3A819 /* UIColor+HexAlpha.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIColor+HexAlpha.h"; sourceTree = "<group>"; };
+		F06A6FA81FB06B6000D3A819 /* UIColor+HexAlpha.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIColor+HexAlpha.m"; sourceTree = "<group>"; };
+		F06A6FAC1FB06FB900D3A819 /* HexAlphaTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HexAlphaTests.m; sourceTree = "<group>"; };
+		F06A6FB21FB07FCF00D3A819 /* ThemeKitTestApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ThemeKitTestApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F06A6FB41FB07FCF00D3A819 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		F06A6FB51FB07FCF00D3A819 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		F06A6FB71FB07FCF00D3A819 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		F06A6FB81FB07FCF00D3A819 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		F06A6FBB1FB07FCF00D3A819 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		F06A6FBD1FB07FCF00D3A819 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F06A6FC01FB07FCF00D3A819 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		F06A6FC21FB07FCF00D3A819 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F06A6FC31FB07FCF00D3A819 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +98,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F06A6FAF1FB07FCF00D3A819 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F06A6FCC1FB0800900D3A819 /* DZThemeKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -55,7 +114,9 @@
 			children = (
 				F06A6F881FB0698900D3A819 /* DZThemeKit */,
 				F06A6F931FB0698900D3A819 /* DZThemeKitTests */,
+				F06A6FB31FB07FCF00D3A819 /* ThemeKitTestApp */,
 				F06A6F871FB0698900D3A819 /* Products */,
+				F06A6FCA1FB07FF900D3A819 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -64,6 +125,7 @@
 			children = (
 				F06A6F861FB0698900D3A819 /* DZThemeKit.framework */,
 				F06A6F8F1FB0698900D3A819 /* DZThemeKitTests.xctest */,
+				F06A6FB21FB07FCF00D3A819 /* ThemeKitTestApp.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -71,8 +133,12 @@
 		F06A6F881FB0698900D3A819 /* DZThemeKit */ = {
 			isa = PBXGroup;
 			children = (
+				F06A6FA01FB0699100D3A819 /* Categories */,
 				F06A6F891FB0698900D3A819 /* DZThemeKit.h */,
 				F06A6F8A1FB0698900D3A819 /* Info.plist */,
+				F06A6FA11FB069A000D3A819 /* ThemeKit.h */,
+				F06A6FA21FB069A000D3A819 /* ThemeKit.m */,
+				F06A6FA51FB06AFF00D3A819 /* colours.json */,
 			);
 			path = DZThemeKit;
 			sourceTree = "<group>";
@@ -81,9 +147,42 @@
 			isa = PBXGroup;
 			children = (
 				F06A6F941FB0698900D3A819 /* DZThemeKitTests.m */,
+				F06A6FAC1FB06FB900D3A819 /* HexAlphaTests.m */,
 				F06A6F961FB0698900D3A819 /* Info.plist */,
 			);
 			path = DZThemeKitTests;
+			sourceTree = "<group>";
+		};
+		F06A6FA01FB0699100D3A819 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				F06A6FA71FB06B6000D3A819 /* UIColor+HexAlpha.h */,
+				F06A6FA81FB06B6000D3A819 /* UIColor+HexAlpha.m */,
+			);
+			path = Categories;
+			sourceTree = "<group>";
+		};
+		F06A6FB31FB07FCF00D3A819 /* ThemeKitTestApp */ = {
+			isa = PBXGroup;
+			children = (
+				F06A6FB41FB07FCF00D3A819 /* AppDelegate.h */,
+				F06A6FB51FB07FCF00D3A819 /* AppDelegate.m */,
+				F06A6FB71FB07FCF00D3A819 /* ViewController.h */,
+				F06A6FB81FB07FCF00D3A819 /* ViewController.m */,
+				F06A6FBA1FB07FCF00D3A819 /* Main.storyboard */,
+				F06A6FBD1FB07FCF00D3A819 /* Assets.xcassets */,
+				F06A6FBF1FB07FCF00D3A819 /* LaunchScreen.storyboard */,
+				F06A6FC21FB07FCF00D3A819 /* Info.plist */,
+				F06A6FC31FB07FCF00D3A819 /* main.m */,
+			);
+			path = ThemeKitTestApp;
+			sourceTree = "<group>";
+		};
+		F06A6FCA1FB07FF900D3A819 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -94,6 +193,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				F06A6F971FB0698900D3A819 /* DZThemeKit.h in Headers */,
+				F06A6FA91FB06B6000D3A819 /* UIColor+HexAlpha.h in Headers */,
+				F06A6FA31FB069A000D3A819 /* ThemeKit.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -136,6 +237,25 @@
 			productReference = F06A6F8F1FB0698900D3A819 /* DZThemeKitTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		F06A6FB11FB07FCF00D3A819 /* ThemeKitTestApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F06A6FC51FB07FCF00D3A819 /* Build configuration list for PBXNativeTarget "ThemeKitTestApp" */;
+			buildPhases = (
+				F06A6FAE1FB07FCF00D3A819 /* Sources */,
+				F06A6FAF1FB07FCF00D3A819 /* Frameworks */,
+				F06A6FB01FB07FCF00D3A819 /* Resources */,
+				F06A6FCE1FB0800900D3A819 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F06A6FC91FB07FED00D3A819 /* PBXTargetDependency */,
+			);
+			name = ThemeKitTestApp;
+			productName = ThemeKitTestApp;
+			productReference = F06A6FB21FB07FCF00D3A819 /* ThemeKitTestApp.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -153,6 +273,10 @@
 						CreatedOnToolsVersion = 9.1;
 						ProvisioningStyle = Automatic;
 					};
+					F06A6FB11FB07FCF00D3A819 = {
+						CreatedOnToolsVersion = 9.1;
+						ProvisioningStyle = Automatic;
+					};
 				};
 			};
 			buildConfigurationList = F06A6F801FB0698900D3A819 /* Build configuration list for PBXProject "DZThemeKit" */;
@@ -161,6 +285,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = F06A6F7C1FB0698900D3A819;
 			productRefGroup = F06A6F871FB0698900D3A819 /* Products */;
@@ -169,6 +294,7 @@
 			targets = (
 				F06A6F851FB0698900D3A819 /* DZThemeKit */,
 				F06A6F8E1FB0698900D3A819 /* DZThemeKitTests */,
+				F06A6FB11FB07FCF00D3A819 /* ThemeKitTestApp */,
 			);
 		};
 /* End PBXProject section */
@@ -178,6 +304,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F06A6FA61FB06AFF00D3A819 /* colours.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -188,6 +315,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F06A6FB01FB07FCF00D3A819 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F06A6FC11FB07FCF00D3A819 /* LaunchScreen.storyboard in Resources */,
+				F06A6FBE1FB07FCF00D3A819 /* Assets.xcassets in Resources */,
+				F06A6FBC1FB07FCF00D3A819 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -195,6 +332,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F06A6FAA1FB06B6000D3A819 /* UIColor+HexAlpha.m in Sources */,
+				F06A6FA41FB069A000D3A819 /* ThemeKit.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -202,7 +341,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F06A6FAD1FB06FB900D3A819 /* HexAlphaTests.m in Sources */,
 				F06A6F951FB0698900D3A819 /* DZThemeKitTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F06A6FAE1FB07FCF00D3A819 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F06A6FB91FB07FCF00D3A819 /* ViewController.m in Sources */,
+				F06A6FC41FB07FCF00D3A819 /* main.m in Sources */,
+				F06A6FB61FB07FCF00D3A819 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -214,7 +364,31 @@
 			target = F06A6F851FB0698900D3A819 /* DZThemeKit */;
 			targetProxy = F06A6F911FB0698900D3A819 /* PBXContainerItemProxy */;
 		};
+		F06A6FC91FB07FED00D3A819 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F06A6F851FB0698900D3A819 /* DZThemeKit */;
+			targetProxy = F06A6FC81FB07FED00D3A819 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		F06A6FBA1FB07FCF00D3A819 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F06A6FBB1FB07FCF00D3A819 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		F06A6FBF1FB07FCF00D3A819 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F06A6FC01FB07FCF00D3A819 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		F06A6F981FB0698900D3A819 /* Debug */ = {
@@ -393,6 +567,34 @@
 			};
 			name = Release;
 		};
+		F06A6FC61FB07FCF00D3A819 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 3TLN858B23;
+				INFOPLIST_FILE = ThemeKitTestApp/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.dezinezync.ThemeKitTestApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		F06A6FC71FB07FCF00D3A819 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 3TLN858B23;
+				INFOPLIST_FILE = ThemeKitTestApp/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.dezinezync.ThemeKitTestApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -419,6 +621,15 @@
 			buildConfigurations = (
 				F06A6F9E1FB0698900D3A819 /* Debug */,
 				F06A6F9F1FB0698900D3A819 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F06A6FC51FB07FCF00D3A819 /* Build configuration list for PBXNativeTarget "ThemeKitTestApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F06A6FC61FB07FCF00D3A819 /* Debug */,
+				F06A6FC71FB07FCF00D3A819 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
