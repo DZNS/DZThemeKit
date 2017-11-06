@@ -72,6 +72,7 @@
             
             for (UILabel *label in @[strongSelf.titleLabel, strongSelf.textLabel, strongSelf.subtextLabel, strongSelf.borderLabel, strongSelf.tintLabel, strongSelf.customLabel]) {
                 [label tk_updateSubtextColorForTheme];
+                [label tk_updateBackgroundColor];
             }
             
             strongSelf.titleBlock.backgroundColor   = [MyThemeKit valueForKey:@"titleColor"];
