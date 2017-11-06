@@ -25,6 +25,7 @@ extern ThemeKit * _Nonnull MyThemeKit;
 
 /**
  Load your theme colours' configuration for a JSON file at the given path.
+ If a theme already exists and is loaded, it'll be overwritten.
 
  @param path An NSURL object for the file. It's recommended that this is obtained by using the [NSBungle bundleForClass:] API.
  */

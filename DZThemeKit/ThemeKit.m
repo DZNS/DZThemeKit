@@ -36,8 +36,6 @@ NSString *const ThemeNeedsUpdateNotification = @"com.dezinezync.themekit.needsUp
 - (instancetype)init
 {
     if (self = [super init]) {
-        _additionals = @{}.mutableCopy;
-        
         NSBundle *classBundle = [NSBundle bundleForClass:self.class];
         NSString *path = [classBundle pathForResource:@"colours" ofType:@"json"];
         
@@ -109,7 +107,15 @@ NSString *const ThemeNeedsUpdateNotification = @"com.dezinezync.themekit.needsUp
         return;
     
     NSData *contents =  [[NSData alloc] initWithContentsOfFile:path.path];
-    NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:contents options:kNilOptions error:nil];
+    
+    NSError *error = nil;
+    NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:contents options:kNilOptions error:&error];
+    
+    if (error)
+        @throw error;
+    
+    if (!forDark)
+        _additionals = @{}.mutableCopy;
     
     __weak typeof(self) weakSelf = self;
     
@@ -209,6 +215,9 @@ NSString *const ThemeNeedsUpdateNotification = @"com.dezinezync.themekit.needsUp
 - (void)didChangeBrightness:(NSNotification * _Nullable)note {
     
     BOOL newVal = UIScreen.mainScreen.brightness <= 0.4f;
+#if TARGET_OS_SIMULATOR
+    newVal = NO;
+#endif
     BOOL fireNotification = newVal != _useDark;
     
     if (fireNotification) {
