@@ -29,6 +29,8 @@
 		F0B2BED81FB0B74E00222769 /* UILabel+ThemeKit.m in Sources */ = {isa = PBXBuildFile; fileRef = F0B2BED61FB0B74E00222769 /* UILabel+ThemeKit.m */; };
 		F0B2BEDB1FB0B8BF00222769 /* UIView+ThemeKit.h in Headers */ = {isa = PBXBuildFile; fileRef = F0B2BED91FB0B8BF00222769 /* UIView+ThemeKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F0B2BEDC1FB0B8BF00222769 /* UIView+ThemeKit.m in Sources */ = {isa = PBXBuildFile; fileRef = F0B2BEDA1FB0B8BF00222769 /* UIView+ThemeKit.m */; };
+		F0B2BEDF1FB0C13A00222769 /* UITextField+ThemeKit.h in Headers */ = {isa = PBXBuildFile; fileRef = F0B2BEDD1FB0C13A00222769 /* UITextField+ThemeKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F0B2BEE01FB0C13A00222769 /* UITextField+ThemeKit.m in Sources */ = {isa = PBXBuildFile; fileRef = F0B2BEDE1FB0C13A00222769 /* UITextField+ThemeKit.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,6 +92,8 @@
 		F0B2BED61FB0B74E00222769 /* UILabel+ThemeKit.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UILabel+ThemeKit.m"; sourceTree = "<group>"; };
 		F0B2BED91FB0B8BF00222769 /* UIView+ThemeKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+ThemeKit.h"; sourceTree = "<group>"; };
 		F0B2BEDA1FB0B8BF00222769 /* UIView+ThemeKit.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+ThemeKit.m"; sourceTree = "<group>"; };
+		F0B2BEDD1FB0C13A00222769 /* UITextField+ThemeKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITextField+ThemeKit.h"; sourceTree = "<group>"; };
+		F0B2BEDE1FB0C13A00222769 /* UITextField+ThemeKit.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITextField+ThemeKit.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -173,6 +177,8 @@
 				F0B2BED61FB0B74E00222769 /* UILabel+ThemeKit.m */,
 				F0B2BED91FB0B8BF00222769 /* UIView+ThemeKit.h */,
 				F0B2BEDA1FB0B8BF00222769 /* UIView+ThemeKit.m */,
+				F0B2BEDD1FB0C13A00222769 /* UITextField+ThemeKit.h */,
+				F0B2BEDE1FB0C13A00222769 /* UITextField+ThemeKit.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -212,6 +218,7 @@
 				F06A6FA91FB06B6000D3A819 /* UIColor+HexAlpha.h in Headers */,
 				F0B2BEDB1FB0B8BF00222769 /* UIView+ThemeKit.h in Headers */,
 				F06A6FA31FB069A000D3A819 /* ThemeKit.h in Headers */,
+				F0B2BEDF1FB0C13A00222769 /* UITextField+ThemeKit.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -351,6 +358,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F06A6FAA1FB06B6000D3A819 /* UIColor+HexAlpha.m in Sources */,
+				F0B2BEE01FB0C13A00222769 /* UITextField+ThemeKit.m in Sources */,
 				F06A6FA41FB069A000D3A819 /* ThemeKit.m in Sources */,
 				F0B2BED81FB0B74E00222769 /* UILabel+ThemeKit.m in Sources */,
 				F0B2BEDC1FB0B8BF00222769 /* UIView+ThemeKit.m in Sources */,

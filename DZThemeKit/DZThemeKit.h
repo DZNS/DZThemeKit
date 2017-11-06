@@ -19,4 +19,5 @@ FOUNDATION_EXPORT const unsigned char DZThemeKitVersionString[];
 
 #import <DZThemeKit/UILabel+ThemeKit.h>
 #import <DZThemeKit/UIView+ThemeKit.h>
+#import <DZThemeKit/UITextField+ThemeKit.h>
 
