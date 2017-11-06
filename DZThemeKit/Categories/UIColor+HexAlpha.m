@@ -72,9 +72,6 @@
     
     if (p3) {
         if (fromRGB) {
-            // convert using transfer function
-            // https://drafts.csswg.org/css-color/#predefined
-            
             CGFloat red = ((rgbValue & 0xFF0000) >> 16)/255.0;
             CGFloat green = ((rgbValue & 0xFF00) >> 8)/255.0;
             CGFloat blue = (rgbValue & 0xFF)/255.0;
@@ -92,6 +89,8 @@
         return [UIColor colorWithRed:((rgbValue & 0xFF0000) >> 16)/255.0 green:((rgbValue & 0xFF00) >> 8)/255.0 blue:(rgbValue & 0xFF)/255.0 alpha:alpha];
 }
 
+// convert using transfer function
+// https://drafts.csswg.org/css-color/#predefined
 + (CGFloat)transferedToP3ColorSpace:(CGFloat)C {
     CGFloat Cl = C;
     if (C <= 0.04045)

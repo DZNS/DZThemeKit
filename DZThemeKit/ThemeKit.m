@@ -129,7 +129,7 @@ ThemeKit *MyThemeKit;
                     [setDict setObject:p3color forKey:@"p3"];
                     
                 }
-                else if ([p3val isKindOfClass:NSNumber.class]) {
+                else if ([p3val isKindOfClass:NSNumber.class] && [p3val boolValue]) {
                     // convert rgb color to p3
                     UIColor *p3color = [UIColor colorFromHex:[subdict valueForKey:@"rgb"] p3:YES fromRGB:YES];
                     [setDict setObject:p3color forKey:@"p3"];
