@@ -10,10 +10,14 @@
 #import "UIColor+HexAlpha.h"
 
 ThemeKit *MyThemeKit;
+NSString *const ThemeNeedsUpdateNotification = @"com.dezinezync.themekit.needsUpdateNotification";
 
-@interface ThemeKit ()
+@interface ThemeKit () {
+    BOOL _brightnessNoteRegistered;
+}
 
 @property (nonatomic, strong) NSMutableDictionary *additionals;
+@property (nonatomic, strong) NSMutableDictionary *dark;
 
 @end
 
@@ -44,11 +48,16 @@ ThemeKit *MyThemeKit;
     return self;
 }
 
+#pragma mark - KVC
+
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key
 {
     if (value == nil) {
         if ([self.additionals valueForKey:key])
             [self.additionals removeObjectForKey:key];
+        
+        if ([self.dark valueForKey:key])
+            [self.dark removeObjectForKey:key];
     }
     else
         [self.additionals setValue:value forKey:key];
@@ -56,7 +65,7 @@ ThemeKit *MyThemeKit;
 
 - (id)valueForUndefinedKey:(NSString *)key
 {
-    id val = [self.additionals valueForKey:key];
+    id val = [(self.isDark ? self.dark : self.additionals) valueForKey:key];
     
     return val;
 }
@@ -65,8 +74,8 @@ ThemeKit *MyThemeKit;
 {
     id val = [super valueForKey:key];
     
-    if (!val) {
-        val = [self valueForUndefinedKey:key];
+    if (!val || [val isKindOfClass:NSDictionary.class]) {
+        val = val ?: [self valueForUndefinedKey:key];
         
         // since we're here, it's possible we have the P3 colour as well. Check
         if ([val isKindOfClass:NSDictionary.class]) {
@@ -86,9 +95,14 @@ ThemeKit *MyThemeKit;
     return val;
 }
 
-#pragma mark -
+#pragma mark - Instance Methods
 
 - (void)loadColorsFromFile:(NSURL *)path
+{
+    [self loadColorsFromFile:path forDark:NO];
+}
+
+- (void)loadColorsFromFile:(NSURL *)path forDark:(BOOL)forDark
 {
     
     if(!path)
@@ -106,7 +120,10 @@ ThemeKit *MyThemeKit;
         if ([obj isKindOfClass:NSString.class]) {
             UIColor *color = [UIColor colorFromHex:obj];
             
-            [strongSelf setValue:color forKeyPath:key];
+            if (forDark)
+                [strongSelf.dark setValue:color forKey:key];
+            else
+                [strongSelf.additionals setValue:color forKey:key];
         }
         else if ([obj isKindOfClass:NSDictionary.class]) {
             NSDictionary *subdict = obj;
@@ -136,15 +153,71 @@ ThemeKit *MyThemeKit;
                 }
             }
             
-            [strongSelf.additionals setValue:setDict.copy forKey:key];
+            if (forDark)
+                [strongSelf.dark setValue:setDict.copy forKey:key];
+            else
+                [strongSelf.additionals setValue:setDict.copy forKey:key];
         }
         
     }];
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        NSLog(@"%@", [self valueForKey:@"tintColor"]);
-    });
+    if (!forDark) {
+        // check if a dark theme is available at the same path
+        NSString *darkPath = path.path;
+        darkPath = [darkPath stringByReplacingOccurrencesOfString:@".json" withString:@"-dark.json"];
+        
+        if ([NSFileManager.defaultManager fileExistsAtPath:darkPath]) {
+            NSURL *darkURL = [NSURL URLWithString:darkPath];
+            
+            _dark = @{}.mutableCopy;
+            
+            [self loadColorsFromFile:darkURL forDark:YES];
+        }
+        else {
+            _dark = nil;
+        }
+    }
     
+}
+
+#pragma mark - Setters
+
+- (void)setAutoUpdatingTheme:(BOOL)autoUpdatingTheme
+{
+    _autoUpdatingTheme = autoUpdatingTheme;
+    
+    if (_autoUpdatingTheme && self.dark && self.dark.allKeys.count) {
+        [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(didChangeBrightness:) name:UIScreenBrightnessDidChangeNotification object:nil];
+        _brightnessNoteRegistered = YES;
+        
+        __weak typeof(self) weakSelf = self;
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            __strong typeof(weakSelf) strongSelf = weakSelf;
+            
+            [strongSelf didChangeBrightness:nil];
+        });
+    }
+    else if (_brightnessNoteRegistered) {
+        [NSNotificationCenter.defaultCenter removeObserver:self name:UIScreenBrightnessDidChangeNotification object:nil];
+        _brightnessNoteRegistered = NO;
+    }
+}
+
+#pragma mark - Notifications
+
+- (void)didChangeBrightness:(NSNotification * _Nullable)note {
+    
+    BOOL newVal = UIScreen.mainScreen.brightness <= 0.4f;
+    BOOL fireNotification = newVal != _useDark;
+    
+    if (fireNotification) {
+        _useDark = newVal;
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [NSNotificationCenter.defaultCenter postNotificationName:ThemeNeedsUpdateNotification object:nil];
+        });
+    }
 }
 
 @end
