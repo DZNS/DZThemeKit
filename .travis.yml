@@ -9,7 +9,7 @@ env:
   - IOS_FRAMEWORK_SCHEME="DZThemeKit"
   - IOS_SDK=iphonesimulator11.0
   matrix:
-  - DESTINATION="OS=9.0,name=iPhone 6"           SCHEME="$IOS_FRAMEWORK_SCHEME"     SDK="$IOS_SDK"
+  - DESTINATION="OS=11.0,name=iPhone 6"           SCHEME="$IOS_FRAMEWORK_SCHEME"     SDK="$IOS_SDK"
 
 script:
   - xcodebuild -version
@@ -23,4 +23,3 @@ branches:
 
 notifications:
   email: false
-  
