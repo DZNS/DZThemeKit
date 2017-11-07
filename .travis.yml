@@ -1,0 +1,20 @@
+language: objective-c
+osx_image: xcode9
+
+env:
+  global:
+  - LC_CTYPE=en_US.UTF-8
+  - LANG=en_US.UTF-8
+
+script:
+  - xcodebuild -version
+  - xcodebuild -showsdks
+  - set -o pipefail && xcodebuild test -project DZThemeKit.xcodeproj -scheme DZThemeKitTests -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 7,OS=11' -configuration Debug ONLY_ACTIVE_ARCH=NO | xcpretty
+
+branches:
+  only:
+  - master
+  - dev
+
+notifications:
+  email: false

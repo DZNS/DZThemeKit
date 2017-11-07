@@ -24,6 +24,13 @@
 		F06A6FC41FB07FCF00D3A819 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F06A6FC31FB07FCF00D3A819 /* main.m */; };
 		F06A6FCC1FB0800900D3A819 /* DZThemeKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F06A6F861FB0698900D3A819 /* DZThemeKit.framework */; };
 		F06A6FCD1FB0800900D3A819 /* DZThemeKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F06A6F861FB0698900D3A819 /* DZThemeKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F0B2BED41FB0AE7600222769 /* colours-dark.json in Resources */ = {isa = PBXBuildFile; fileRef = F0B2BED31FB0AE7600222769 /* colours-dark.json */; };
+		F0B2BED71FB0B74E00222769 /* UILabel+ThemeKit.h in Headers */ = {isa = PBXBuildFile; fileRef = F0B2BED51FB0B74E00222769 /* UILabel+ThemeKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F0B2BED81FB0B74E00222769 /* UILabel+ThemeKit.m in Sources */ = {isa = PBXBuildFile; fileRef = F0B2BED61FB0B74E00222769 /* UILabel+ThemeKit.m */; };
+		F0B2BEDB1FB0B8BF00222769 /* UIView+ThemeKit.h in Headers */ = {isa = PBXBuildFile; fileRef = F0B2BED91FB0B8BF00222769 /* UIView+ThemeKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F0B2BEDC1FB0B8BF00222769 /* UIView+ThemeKit.m in Sources */ = {isa = PBXBuildFile; fileRef = F0B2BEDA1FB0B8BF00222769 /* UIView+ThemeKit.m */; };
+		F0B2BEDF1FB0C13A00222769 /* UITextField+ThemeKit.h in Headers */ = {isa = PBXBuildFile; fileRef = F0B2BEDD1FB0C13A00222769 /* UITextField+ThemeKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F0B2BEE01FB0C13A00222769 /* UITextField+ThemeKit.m in Sources */ = {isa = PBXBuildFile; fileRef = F0B2BEDE1FB0C13A00222769 /* UITextField+ThemeKit.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,6 +87,13 @@
 		F06A6FC01FB07FCF00D3A819 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F06A6FC21FB07FCF00D3A819 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F06A6FC31FB07FCF00D3A819 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		F0B2BED31FB0AE7600222769 /* colours-dark.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "colours-dark.json"; sourceTree = "<group>"; };
+		F0B2BED51FB0B74E00222769 /* UILabel+ThemeKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UILabel+ThemeKit.h"; sourceTree = "<group>"; };
+		F0B2BED61FB0B74E00222769 /* UILabel+ThemeKit.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UILabel+ThemeKit.m"; sourceTree = "<group>"; };
+		F0B2BED91FB0B8BF00222769 /* UIView+ThemeKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+ThemeKit.h"; sourceTree = "<group>"; };
+		F0B2BEDA1FB0B8BF00222769 /* UIView+ThemeKit.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+ThemeKit.m"; sourceTree = "<group>"; };
+		F0B2BEDD1FB0C13A00222769 /* UITextField+ThemeKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITextField+ThemeKit.h"; sourceTree = "<group>"; };
+		F0B2BEDE1FB0C13A00222769 /* UITextField+ThemeKit.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITextField+ThemeKit.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,6 +153,7 @@
 				F06A6FA11FB069A000D3A819 /* ThemeKit.h */,
 				F06A6FA21FB069A000D3A819 /* ThemeKit.m */,
 				F06A6FA51FB06AFF00D3A819 /* colours.json */,
+				F0B2BED31FB0AE7600222769 /* colours-dark.json */,
 			);
 			path = DZThemeKit;
 			sourceTree = "<group>";
@@ -158,6 +173,12 @@
 			children = (
 				F06A6FA71FB06B6000D3A819 /* UIColor+HexAlpha.h */,
 				F06A6FA81FB06B6000D3A819 /* UIColor+HexAlpha.m */,
+				F0B2BED51FB0B74E00222769 /* UILabel+ThemeKit.h */,
+				F0B2BED61FB0B74E00222769 /* UILabel+ThemeKit.m */,
+				F0B2BED91FB0B8BF00222769 /* UIView+ThemeKit.h */,
+				F0B2BEDA1FB0B8BF00222769 /* UIView+ThemeKit.m */,
+				F0B2BEDD1FB0C13A00222769 /* UITextField+ThemeKit.h */,
+				F0B2BEDE1FB0C13A00222769 /* UITextField+ThemeKit.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -192,9 +213,12 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F0B2BED71FB0B74E00222769 /* UILabel+ThemeKit.h in Headers */,
 				F06A6F971FB0698900D3A819 /* DZThemeKit.h in Headers */,
 				F06A6FA91FB06B6000D3A819 /* UIColor+HexAlpha.h in Headers */,
+				F0B2BEDB1FB0B8BF00222769 /* UIView+ThemeKit.h in Headers */,
 				F06A6FA31FB069A000D3A819 /* ThemeKit.h in Headers */,
+				F0B2BEDF1FB0C13A00222769 /* UITextField+ThemeKit.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -305,6 +329,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F06A6FA61FB06AFF00D3A819 /* colours.json in Resources */,
+				F0B2BED41FB0AE7600222769 /* colours-dark.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -333,7 +358,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				F06A6FAA1FB06B6000D3A819 /* UIColor+HexAlpha.m in Sources */,
+				F0B2BEE01FB0C13A00222769 /* UITextField+ThemeKit.m in Sources */,
 				F06A6FA41FB069A000D3A819 /* ThemeKit.m in Sources */,
+				F0B2BED81FB0B74E00222769 /* UILabel+ThemeKit.m in Sources */,
+				F0B2BEDC1FB0B8BF00222769 /* UIView+ThemeKit.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
