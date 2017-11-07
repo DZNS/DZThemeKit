@@ -1,0 +1,10 @@
+language: objective-c
+osx_image: xcode9
+xcode_project: DZThemeKit.xcodeproj
+xcode_scheme: DZThemeKitTests
+xcode_sdk: iphonesimulator11
+branches:
+  only:
+  - master
+  - dev
+script: set -o pipefail && xcodebuild -scheme DZThemeKitTests -destination 'name=iPhone 6' test | xcpretty
