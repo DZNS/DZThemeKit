@@ -1,10 +1,26 @@
 language: objective-c
 osx_image: xcode9
-xcode_project: DZThemeKit.xcodeproj
-xcode_scheme: DZThemeKitTests
-xcode_sdk: iphonesimulator11
+
+env:
+  global:
+  - LC_CTYPE=en_US.UTF-8
+  - LANG=en_US.UTF-8
+  - PROJECT=DZThemeKit.xcodeproj
+  - IOS_FRAMEWORK_SCHEME="DZThemeKit"
+  - IOS_SDK=iphonesimulator11.0
+  matrix:
+  - DESTINATION="OS=9.0,name=iPhone 6"           SCHEME="$IOS_FRAMEWORK_SCHEME"     SDK="$IOS_SDK"
+
+script:
+  - xcodebuild -version
+  - xcodebuild -showsdks
+  - set -o pipefail && xcodebuild -project "$PROJECT" -scheme "$SCHEME" -sdk "$SDK" -destination "$DESTINATION" -configuration Debug ONLY_ACTIVE_ARCH=YES test | xcpretty
+
 branches:
   only:
   - master
   - dev
-script: set -o pipefail && xcodebuild -scheme DZThemeKitTests -destination 'name=iPhone 6' test | xcpretty
+
+notifications:
+  email: false
+  

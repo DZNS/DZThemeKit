@@ -1,4 +1,6 @@
-#DZThemeKit
+# DZThemeKit
+
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage) 
 
 DZThemeKit is a simple implementation for managing multiple User Interface themes in your app. For the moment, only UIKit is being targeted. Categories for WatchOS and AppKit will be added soon.
 
@@ -77,7 +79,7 @@ If you don't want a DCI-P3 value, you can set it to false which is the default b
 ```json
 {
   "rgb": "#2979FF",
-  "p3": "#0631FF" // you can totally use this value :)
+  "p3": "#0631FF"
 }
 ```
 
@@ -89,4 +91,4 @@ The framework also supports colour values like the following:
 ```
 
 ### LICENSE
-DZThemeKit is available under the MIT License. Please see the LICENSE file for more information. 
+DZThemeKit is available under the MIT License. Please see the LICENSE file for more information.
