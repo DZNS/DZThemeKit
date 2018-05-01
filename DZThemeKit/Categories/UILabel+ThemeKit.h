@@ -10,10 +10,10 @@
 
 @interface UILabel (ThemeKit)
 
-- (void)tk_updateTitleColorForTheme;
+- (void)tk_updateTitleColor;
 
-- (void)tk_updateTextColorForTheme;
+- (void)tk_updateSubtitleColor;
 
-- (void)tk_updateSubtextColorForTheme;
+- (void)tk_updateCaptionColor;
 
 @end

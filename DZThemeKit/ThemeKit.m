@@ -10,20 +10,21 @@
 #import "UIColor+HexAlpha.h"
 
 ThemeKit *MyThemeKit;
-NSString *const ThemeNeedsUpdateNotification = @"com.dezinezync.themekit.needsUpdateNotification";
+NSNotificationName const ThemeNeedsUpdateNotification = @"com.dezinezync.themekit.needsUpdateNotification";
+NSNotificationName const ThemeWillUpdate = @"com.dezinezync.themekit.willUpdateNotification";
+NSNotificationName const ThemeDidUpdate = @"com.dezinezync.themekit.didUpdateNotification";
 
 @interface ThemeKit () {
     BOOL _brightnessNoteRegistered;
 }
 
-@property (nonatomic, strong) NSMutableDictionary *additionals;
-@property (nonatomic, strong) NSMutableDictionary *dark;
+@property (nonatomic, strong, readwrite) NSArray <Theme *> *themes;
 
 @end
 
 @implementation ThemeKit
 
-+ (void)load
++ (void)loadThemeKit
 {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -36,6 +37,9 @@ NSString *const ThemeNeedsUpdateNotification = @"com.dezinezync.themekit.needsUp
 - (instancetype)init
 {
     if (self = [super init]) {
+        
+        self.themes = @[];
+        
         NSBundle *classBundle = [NSBundle bundleForClass:self.class];
         NSString *path = [classBundle pathForResource:@"colours" ofType:@"json"];
         
@@ -46,65 +50,18 @@ NSString *const ThemeNeedsUpdateNotification = @"com.dezinezync.themekit.needsUp
     return self;
 }
 
-#pragma mark - KVC
-
-- (void)setValue:(id)value forUndefinedKey:(NSString *)key
-{
-    if (value == nil) {
-        if ([self.additionals valueForKey:key])
-            [self.additionals removeObjectForKey:key];
-        
-        if ([self.dark valueForKey:key])
-            [self.dark removeObjectForKey:key];
-    }
-    else
-        [self.additionals setValue:value forKey:key];
-}
-
-- (id)valueForUndefinedKey:(NSString *)key
-{
-    id val = [(self.isDark ? self.dark : self.additionals) valueForKey:key];
-    
-    return val;
-}
-
-- (id)valueForKey:(NSString *)key
-{
-    id val = [super valueForKey:key];
-    
-    if (!val || [val isKindOfClass:NSDictionary.class]) {
-        val = val ?: [self valueForUndefinedKey:key];
-        
-        // since we're here, it's possible we have the P3 colour as well. Check
-        if ([val isKindOfClass:NSDictionary.class]) {
-            // check the device screenspace
-            
-            if ([val valueForKey:@"p3"] && UIApplication.sharedApplication.keyWindow.rootViewController.view.traitCollection.displayGamut == UIDisplayGamutP3) {
-                return [val valueForKey:@"p3"];
-            }
-            else
-                return [val valueForKey:@"rgb"];
-        }
-        
-        return val;
-        
-    }
-    
-    return val;
-}
-
 #pragma mark - Instance Methods
 
-- (void)loadColorsFromFile:(NSURL *)path
+- (Theme *)loadColorsFromFile:(NSURL *)path
 {
-    [self loadColorsFromFile:path forDark:NO];
+    return [self loadColorsFromFile:path forDark:NO];
 }
 
-- (void)loadColorsFromFile:(NSURL *)path forDark:(BOOL)forDark
+- (Theme *)loadColorsFromFile:(NSURL *)path forDark:(BOOL)forDark
 {
     
     if(!path)
-        return;
+        return nil;
     
     NSData *contents =  [[NSData alloc] initWithContentsOfFile:path.path];
     
@@ -114,27 +71,23 @@ NSString *const ThemeNeedsUpdateNotification = @"com.dezinezync.themekit.needsUp
     if (error)
         @throw error;
     
-    if (!forDark)
-        _additionals = @{}.mutableCopy;
+    NSString *name = [[[path lastPathComponent] componentsSeparatedByString:@"."] firstObject];
     
-    __weak typeof(self) weakSelf = self;
+    Theme *theme = [Theme new];
+    [theme setValue:name forKeyPath:@"name"];
+    theme.dark = forDark;
     
-    [dict enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+   [dict enumerateKeysAndObjectsUsingBlock:^(NSString *  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
        
-        __strong typeof(weakSelf) strongSelf = weakSelf;
-        
-        if ([obj isKindOfClass:NSString.class]) {
+        if ([obj isKindOfClass:NSString.class] && [key containsString:@"Color"]) {
             UIColor *color = [UIColor colorFromHex:obj];
             
-            if (forDark)
-                [strongSelf.dark setValue:color forKey:key];
-            else
-                [strongSelf.additionals setValue:color forKey:key];
+            [theme setValue:color forKey:key];
         }
-        else if ([obj isKindOfClass:NSDictionary.class]) {
+        else if ([obj isKindOfClass:NSDictionary.class] && [key containsString:@"Color"]) {
             NSDictionary *subdict = obj;
             if (![subdict valueForKey:@"rgb"])
-                return;
+            return;
             
             NSMutableDictionary *setDict = @{}.mutableCopy;
             
@@ -159,30 +112,58 @@ NSString *const ThemeNeedsUpdateNotification = @"com.dezinezync.themekit.needsUp
                 }
             }
             
-            if (forDark)
-                [strongSelf.dark setValue:setDict.copy forKey:key];
-            else
-                [strongSelf.additionals setValue:setDict.copy forKey:key];
+            [theme setValue:setDict.copy forKey:key];
+        }
+        else {
+           [theme setValue:obj forKey:key];
         }
         
     }];
     
-    if (!forDark) {
-        // check if a dark theme is available at the same path
-        NSString *darkPath = path.path;
-        darkPath = [darkPath stringByReplacingOccurrencesOfString:@".json" withString:@"-dark.json"];
+    self.themes = [self.themes arrayByAddingObject:theme];
+    
+    if (!self.theme) {
+        self.theme = [self.themes lastObject];
+    }
+    
+    // if there's a dark theme with the same name, load it as well.
+    // also, dark themes cannot have darker themes. Well, let's hope not.
+    if (![path.absoluteString containsString:@"dark"]) {
         
-        if ([NSFileManager.defaultManager fileExistsAtPath:darkPath]) {
-            NSURL *darkURL = [NSURL URLWithString:darkPath];
-            
-            _dark = @{}.mutableCopy;
-            
-            [self loadColorsFromFile:darkURL forDark:YES];
+        NSMutableString *pathStr = path.absoluteString.mutableCopy;
+        NSRange range = [pathStr rangeOfString:@".json"];
+        
+        [pathStr replaceCharactersInRange:range withString:@"-dark.json"];
+        
+        if ([NSFileManager.defaultManager fileExistsAtPath:pathStr]) {
+         
+            // we don't want this to throw an error since the main objective has been achieved.
+            @try {
+                __unused Theme *dark = [self loadColorsFromFile:[NSURL URLWithString:pathStr] forDark:YES];
+            } @catch (NSException *exc) {}
         }
-        else {
-            _dark = nil;
+        
+    }
+    
+    return theme;
+    
+}
+
+- (Theme *)themeNamed:(NSString *)name {
+    
+    if (!name || ![name length])
+    return nil;
+    
+    Theme *theme = nil;
+    
+    for (Theme *obj in self.themes) {
+        if ([obj.name isEqualToString:name]) {
+            theme = obj;
+            break;
         }
     }
+    
+    return theme;
     
 }
 
@@ -192,22 +173,59 @@ NSString *const ThemeNeedsUpdateNotification = @"com.dezinezync.themekit.needsUp
 {
     _autoUpdatingTheme = autoUpdatingTheme;
     
-    if (_autoUpdatingTheme && self.dark && self.dark.allKeys.count) {
-        [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(didChangeBrightness:) name:UIScreenBrightnessDidChangeNotification object:nil];
-        _brightnessNoteRegistered = YES;
+    if (_autoUpdatingTheme) {
         
-        __weak typeof(self) weakSelf = self;
+        // let's make sure we have a dark theme
+        NSMutableArray *darkThemes = [NSMutableArray arrayWithCapacity:self.themes.count];
         
-        dispatch_async(dispatch_get_main_queue(), ^{
-            __strong typeof(weakSelf) strongSelf = weakSelf;
+        for (Theme *theme in self.themes) {
+            if (theme.isDark) {
+                [darkThemes addObject:theme];
+            }
+        }
+        
+        if (darkThemes.count) {
+            [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(didChangeBrightness:) name:UIScreenBrightnessDidChangeNotification object:nil];
+            _brightnessNoteRegistered = YES;
             
-            [strongSelf didChangeBrightness:nil];
-        });
+            __weak typeof(self) weakSelf = self;
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                __strong typeof(weakSelf) strongSelf = weakSelf;
+                
+                [strongSelf didChangeBrightness:nil];
+            });
+        }
     }
     else if (_brightnessNoteRegistered) {
         [NSNotificationCenter.defaultCenter removeObserver:self name:UIScreenBrightnessDidChangeNotification object:nil];
         _brightnessNoteRegistered = NO;
     }
+}
+
+- (void)setTheme:(Theme *)theme {
+    
+    NSNotificationCenter *center = NSNotificationCenter.defaultCenter;
+    
+    [center postNotificationName:ThemeWillUpdate object:MyThemeKit];
+    
+    _theme = theme;
+    
+    if (_theme) {
+        [_theme updateAppearances];
+        
+        for (UIWindow *window in [UIApplication sharedApplication].windows) {
+            for (UIView *view in window.subviews) {
+                [view removeFromSuperview];
+                [window addSubview:view];
+            }
+        }
+        
+        [[[[UIApplication sharedApplication] keyWindow] rootViewController] setNeedsStatusBarAppearanceUpdate];
+    }
+    
+    [center postNotificationName:ThemeDidUpdate object:MyThemeKit];
+    
 }
 
 #pragma mark - Notifications

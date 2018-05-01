@@ -13,7 +13,7 @@
 
 - (void)tk_updateBackgroundColor
 {
-    self.backgroundColor = [MyThemeKit valueForKey:@"backgroundColor"];
+    self.backgroundColor = [MyThemeKit.theme backgroundColor];
 }
 
 @end

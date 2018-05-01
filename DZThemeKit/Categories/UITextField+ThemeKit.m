@@ -13,12 +13,12 @@
 
 - (void)tk_setTextColor
 {
-    self.textColor = [MyThemeKit valueForKey:@"textColor"];
+    self.textColor = [MyThemeKit.theme subtitleColor];
 }
 
 - (void)tk_setPlaceholderColor
 {
-    self.textColor = [MyThemeKit valueForKey:@"placeholderColor"] ?: [MyThemeKit valueForKey:@"subtextColor"];
+    self.textColor = [MyThemeKit.theme valueForKey:@"placeholderColor"] ?: [MyThemeKit.theme captionColor];
 }
 
 @end
@@ -27,7 +27,7 @@
 
 - (void)tk_setTextColor
 {
-    self.textColor = [MyThemeKit valueForKey:@"textColor"];
+    self.textColor = [MyThemeKit.theme subtitleColor];
 }
 
 @end

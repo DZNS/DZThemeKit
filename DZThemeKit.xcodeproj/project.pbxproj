@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F0041BCA2098BBF200EB6A61 /* Theme.h in Headers */ = {isa = PBXBuildFile; fileRef = F0041BC82098BBF200EB6A61 /* Theme.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F0041BCB2098BBF200EB6A61 /* Theme.m in Sources */ = {isa = PBXBuildFile; fileRef = F0041BC92098BBF200EB6A61 /* Theme.m */; };
 		F06A6F901FB0698900D3A819 /* DZThemeKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F06A6F861FB0698900D3A819 /* DZThemeKit.framework */; };
 		F06A6F951FB0698900D3A819 /* DZThemeKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F06A6F941FB0698900D3A819 /* DZThemeKitTests.m */; };
 		F06A6F971FB0698900D3A819 /* DZThemeKit.h in Headers */ = {isa = PBXBuildFile; fileRef = F06A6F891FB0698900D3A819 /* DZThemeKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -65,6 +67,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		F0041BC82098BBF200EB6A61 /* Theme.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Theme.h; sourceTree = "<group>"; };
+		F0041BC92098BBF200EB6A61 /* Theme.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Theme.m; sourceTree = "<group>"; };
 		F06A6F861FB0698900D3A819 /* DZThemeKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DZThemeKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F06A6F891FB0698900D3A819 /* DZThemeKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DZThemeKit.h; sourceTree = "<group>"; };
 		F06A6F8A1FB0698900D3A819 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -150,6 +154,8 @@
 				F06A6FA01FB0699100D3A819 /* Categories */,
 				F06A6F891FB0698900D3A819 /* DZThemeKit.h */,
 				F06A6F8A1FB0698900D3A819 /* Info.plist */,
+				F0041BC82098BBF200EB6A61 /* Theme.h */,
+				F0041BC92098BBF200EB6A61 /* Theme.m */,
 				F06A6FA11FB069A000D3A819 /* ThemeKit.h */,
 				F06A6FA21FB069A000D3A819 /* ThemeKit.m */,
 				F06A6FA51FB06AFF00D3A819 /* colours.json */,
@@ -219,6 +225,7 @@
 				F0B2BEDB1FB0B8BF00222769 /* UIView+ThemeKit.h in Headers */,
 				F06A6FA31FB069A000D3A819 /* ThemeKit.h in Headers */,
 				F0B2BEDF1FB0C13A00222769 /* UITextField+ThemeKit.h in Headers */,
+				F0041BCA2098BBF200EB6A61 /* Theme.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -286,7 +293,7 @@
 		F06A6F7D1FB0698900D3A819 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0910;
+				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = "Dezine Zync Studios";
 				TargetAttributes = {
 					F06A6F851FB0698900D3A819 = {
@@ -360,6 +367,7 @@
 				F06A6FAA1FB06B6000D3A819 /* UIColor+HexAlpha.m in Sources */,
 				F0B2BEE01FB0C13A00222769 /* UITextField+ThemeKit.m in Sources */,
 				F06A6FA41FB069A000D3A819 /* ThemeKit.m in Sources */,
+				F0041BCB2098BBF200EB6A61 /* Theme.m in Sources */,
 				F0B2BED81FB0B74E00222769 /* UILabel+ThemeKit.m in Sources */,
 				F0B2BEDC1FB0B8BF00222769 /* UIView+ThemeKit.m in Sources */,
 			);
@@ -433,6 +441,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -440,6 +449,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -491,6 +501,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -498,6 +509,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;

@@ -8,13 +8,17 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import <DZThemeKit/Theme.h>
 
 @class ThemeKit;
 
 /**
  You can observe this notification in your views or it's controllers to auto update them when the theme is changed or updated.
  */
-extern NSString * _Nonnull const ThemeNeedsUpdateNotification;
+extern NSNotificationName _Nonnull const ThemeNeedsUpdateNotification;
+
+extern NSNotificationName _Nonnull const ThemeWillUpdate;
+extern NSNotificationName _Nonnull const ThemeDidUpdate;
 
 /**
  This is the shared instance of ThemeKit for simpler access.
@@ -24,12 +28,29 @@ extern ThemeKit * _Nonnull MyThemeKit;
 @interface ThemeKit : NSObject
 
 /**
+ Initialize DZThemeKit. Makes MyThemeKit available.
+ */
++ (void)loadThemeKit;
+
+/**
+ The currently active theme.
+ */
+@property (nonatomic, weak) Theme *theme;
+
+/**
+ All the themes that have been currently loaded.
+ */
+@property (nonatomic, strong, readonly) NSArray <Theme *> *themes;
+
+- (Theme *)themeNamed:(NSString *)name;
+
+/**
  Load your theme colours' configuration for a JSON file at the given path.
  If a theme already exists and is loaded, it'll be overwritten.
 
  @param path An NSURL object for the file. It's recommended that this is obtained by using the [NSBungle bundleForClass:] API.
  */
-- (void)loadColorsFromFile:(NSURL * _Nonnull)path;
+- (Theme *)loadColorsFromFile:(NSURL * _Nonnull)path;
 
 /**
  Setting this to YES fires the ThemeNeedsUpdateNotification whenever the device's display brightness dips below a certain threshold.

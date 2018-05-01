@@ -1,12 +1,13 @@
 {
     "backgroundColor": "#000000",
-    "textColor": "#FFFFFF92",
-    "subtextColor": "#FFFFFF50",
+    "subtitleColor": "#FFFFFF92",
+    "captionColor": "#FFFFFF50",
     "titleColor": "#FFF",
     "borderColor": "#FFFFFF12",
     "tintColor": {
         "rgb": "#2979FF",
         "p3": true
     },
-    "customColor": "EE075"
+    "customColor": "EE075",
+    "borderDepth": 1.00
 }

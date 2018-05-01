@@ -11,19 +11,19 @@
 
 @implementation UILabel (ThemeKit)
 
-- (void)tk_updateTitleColorForTheme
+- (void)tk_updateTitleColor
 {
-    self.textColor = [MyThemeKit valueForKey:@"titleColor"];
+    self.textColor = [MyThemeKit.theme titleColor];
 }
 
-- (void)tk_updateTextColorForTheme
+- (void)tk_updateSubtitleColor
 {
-    self.textColor = [MyThemeKit valueForKey:@"textColor"];
+    self.textColor = [MyThemeKit.theme subtitleColor];
 }
 
-- (void)tk_updateSubtextColorForTheme
+- (void)tk_updateCaptionColor
 {
-    self.textColor = [MyThemeKit valueForKey:@"subtextColor"];
+    self.textColor = [MyThemeKit.theme captionColor];
 }
 
 @end

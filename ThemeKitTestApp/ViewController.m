@@ -35,6 +35,8 @@
 @implementation ViewController
 
 - (void)viewDidLoad {
+    [ThemeKit loadThemeKit];
+    
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
@@ -54,12 +56,14 @@
 
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
-    return MyThemeKit.isDark ? UIStatusBarStyleLightContent : UIStatusBarStyleDefault;
+    return MyThemeKit.theme.isDark ? UIStatusBarStyleLightContent : UIStatusBarStyleDefault;
 }
 
 - (void)setupView:(NSNotification *)note
 {
     __weak typeof(self) weakSelf = self;
+    
+    MyThemeKit.theme = MyThemeKit.isDark ? [MyThemeKit themeNamed:@"colours-dark"] : [MyThemeKit themeNamed:@"colours"];
     
     NSTimeInterval duration = note ? 1000 : 0;
     
@@ -68,19 +72,19 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             __strong typeof(weakSelf) strongSelf = weakSelf;
             
-            strongSelf.view.backgroundColor = [MyThemeKit valueForKey:@"backgroundColor"];
+            strongSelf.view.backgroundColor = MyThemeKit.theme.backgroundColor;
             
             for (UILabel *label in @[strongSelf.titleLabel, strongSelf.textLabel, strongSelf.subtextLabel, strongSelf.borderLabel, strongSelf.tintLabel, strongSelf.customLabel]) {
-                [label tk_updateSubtextColorForTheme];
+                [label tk_updateSubtitleColor];
                 [label tk_updateBackgroundColor];
             }
             
-            strongSelf.titleBlock.backgroundColor   = [MyThemeKit valueForKey:@"titleColor"];
-            strongSelf.textBlock.backgroundColor    = [MyThemeKit valueForKey:@"textColor"];
-            strongSelf.subtextBlock.backgroundColor = [MyThemeKit valueForKey:@"subtextColor"];
-            strongSelf.borderBlock.backgroundColor  = [MyThemeKit valueForKey:@"borderColor"];
-            strongSelf.tintBlock.backgroundColor    = [MyThemeKit valueForKey:@"tintColor"];
-            strongSelf.customBlock.backgroundColor  = [MyThemeKit valueForKey:@"customColor"];
+            strongSelf.titleBlock.backgroundColor   = MyThemeKit.theme.titleColor;
+            strongSelf.textBlock.backgroundColor    = MyThemeKit.theme.subtitleColor;
+            strongSelf.subtextBlock.backgroundColor = MyThemeKit.theme.captionColor;
+            strongSelf.borderBlock.backgroundColor  = MyThemeKit.theme.borderColor;
+            strongSelf.tintBlock.backgroundColor    = MyThemeKit.theme.tintColor;
+            strongSelf.customBlock.backgroundColor  = [MyThemeKit.theme valueForKey:@"customColor"];
         });
 
     } completion:^(BOOL finished) {
