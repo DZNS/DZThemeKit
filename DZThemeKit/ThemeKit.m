@@ -24,6 +24,10 @@ NSNotificationName const ThemeDidUpdate = @"com.dezinezync.themekit.didUpdateNot
 
 @implementation ThemeKit
 
++ (Class)themeClass {
+    return Theme.class;
+}
+
 + (void)loadThemeKit
 {
     static dispatch_once_t onceToken;
@@ -73,11 +77,13 @@ NSNotificationName const ThemeDidUpdate = @"com.dezinezync.themekit.didUpdateNot
     
     NSString *name = [[[path lastPathComponent] componentsSeparatedByString:@"."] firstObject];
     
-    Theme *theme = [Theme new];
+    Class ThemeClass = [[self class] themeClass];
+    
+    Theme *theme = [[ThemeClass alloc] init];
     [theme setValue:name forKeyPath:@"name"];
     theme.dark = forDark;
     
-   [dict enumerateKeysAndObjectsUsingBlock:^(NSString *  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+    [dict enumerateKeysAndObjectsUsingBlock:^(NSString *  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
        
         if ([obj isKindOfClass:NSString.class] && [key containsString:@"Color"]) {
             UIColor *color = [UIColor colorFromHex:obj];

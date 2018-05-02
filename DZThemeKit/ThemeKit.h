@@ -27,6 +27,8 @@ extern ThemeKit * _Nonnull MyThemeKit;
 
 @interface ThemeKit : NSObject
 
++ (Class)themeClass;
+
 /**
  Initialize DZThemeKit. Makes MyThemeKit available.
  */
