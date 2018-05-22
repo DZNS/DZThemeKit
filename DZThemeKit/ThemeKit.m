@@ -220,10 +220,12 @@ NSNotificationName const ThemeDidUpdate = @"com.dezinezync.themekit.didUpdateNot
     if (_theme) {
         [_theme updateAppearances];
         
-        for (UIWindow *window in [UIApplication sharedApplication].windows) {
-            for (UIView *view in window.subviews) {
-                [view removeFromSuperview];
-                [window addSubview:view];
+        if (self.autoReloadWindow) {
+            for (UIWindow *window in [UIApplication sharedApplication].windows) {
+                for (UIView *view in window.subviews) {
+                    [view removeFromSuperview];
+                    [window addSubview:view];
+                }
             }
         }
         

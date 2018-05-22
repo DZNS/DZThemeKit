@@ -46,6 +46,13 @@ extern ThemeKit * _Nonnull MyThemeKit;
 
 - (Theme *)themeNamed:(NSString *)name;
 
+
+/**
+ If this is set to YES, the views of windows available to the UIApplication are reloaded.
+ Default is NO;
+ */
+@property (nonatomic, assign) BOOL autoReloadWindow;
+
 /**
  Load your theme colours' configuration for a JSON file at the given path.
  If a theme already exists and is loaded, it'll be overwritten.
