@@ -222,6 +222,14 @@ NSNotificationName const ThemeDidUpdate = @"com.dezinezync.themekit.didUpdateNot
         
         if (self.autoReloadWindow) {
             for (UIWindow *window in [UIApplication sharedApplication].windows) {
+                
+                if ([window isKindOfClass:NSClassFromString(@"UITextEffectsWindow")] == YES) {
+                    // do not touch this window's subviews.
+                    // really really bad things happen.
+                    // It isn't a window we own either. So let's not touch it.
+                    continue;
+                }
+                
                 for (UIView *view in window.subviews) {
                     [view removeFromSuperview];
                     [window addSubview:view];
