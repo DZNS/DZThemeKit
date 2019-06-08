@@ -50,6 +50,9 @@
 
 - (CGFloat)floatForKey:(NSString * _Nonnull)key;
 
+// to be implemented by subclasses
+@property (nonatomic, strong, readonly) NSArray <NSString *> * _Nullable additionalKeyPaths NS_AVAILABLE_IOS(13.0);
+
 - (void)updateWithDynamicColors:(NSArray <NSString *> * _Nonnull)colorKeys NS_AVAILABLE_IOS(13.0);
 
 @end

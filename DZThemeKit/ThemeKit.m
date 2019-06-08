@@ -135,16 +135,15 @@ NSNotificationName const ThemeDidUpdate = @"com.dezinezync.themekit.didUpdateNot
     // also, dark themes cannot have darker themes. Well, let's hope not.
     if (![path.absoluteString containsString:@"dark"]) {
         
-        NSMutableString *pathStr = path.absoluteString.mutableCopy;
-        NSRange range = [pathStr rangeOfString:@".json"];
+        NSString *filename = [[path lastPathComponent] stringByReplacingOccurrencesOfString:@".json" withString:@"-dark"];
         
-        [pathStr replaceCharactersInRange:range withString:@"-dark.json"];
+        NSURL *pathStr = [[NSBundle bundleForClass:self.class] URLForResource:filename withExtension:@"json"];
         
-        if ([NSFileManager.defaultManager fileExistsAtPath:pathStr]) {
+        if (pathStr != nil) {
          
             // we don't want this to throw an error since the main objective has been achieved.
             @try {
-                Theme *dark = [self loadColorsFromFile:[NSURL URLWithString:pathStr] forDark:YES];
+                Theme *dark = [self loadColorsFromFile:pathStr forDark:YES];
                 
                 if (@available(iOS 13, *)) {
                     theme.supportsDarkMode = YES;
@@ -155,6 +154,12 @@ NSNotificationName const ThemeDidUpdate = @"com.dezinezync.themekit.didUpdateNot
                     
                     // add keypaths to the properties as well
                     NSArray <NSString *> *keypaths = @[@"backgroundColor", @"titleColor", @"subtitleColor", @"captionColor", @"tableColor", @"borderColor", @"tintColor"];
+                    
+                    NSArray <NSString *> *additionalKeyPaths = [theme additionalKeyPaths];
+                    
+                    if (additionalKeyPaths != nil && additionalKeyPaths.count > 0) {
+                        keypaths = [keypaths arrayByAddingObjectsFromArray:additionalKeyPaths];
+                    }
                     
                     for (NSString *keypath in keypaths) {
                         
