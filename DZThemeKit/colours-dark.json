@@ -4,10 +4,11 @@
     "captionColor": "#FFFFFF50",
     "titleColor": "#FFF",
     "borderColor": "#FFFFFF12",
+    "tableColor": "#000000",
     "tintColor": {
         "rgb": "#2979FF",
         "p3": true
     },
-    "customColor": "EE075",
+    "customColor": "#440755",
     "borderDepth": 1.00
 }

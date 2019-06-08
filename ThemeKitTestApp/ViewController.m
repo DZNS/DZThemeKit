@@ -42,9 +42,12 @@
     
     [self setupView:nil];
     
-    MyThemeKit.autoUpdatingTheme = YES;
-    
-    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(setupView:) name:ThemeNeedsUpdateNotification object:nil];
+    if (@available(iOS 13, *)) {}
+    else {
+        MyThemeKit.autoUpdatingTheme = YES;
+        
+        [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(setupView:) name:ThemeNeedsUpdateNotification object:nil];
+    }
     
 }
 
@@ -56,6 +59,10 @@
 
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
+    if (@available (iOS 13, *)) {
+        return self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark ? UIStatusBarStyleDarkContent : UIStatusBarStyleDefault;
+    }
+    
     return MyThemeKit.theme.isDark ? UIStatusBarStyleLightContent : UIStatusBarStyleDefault;
 }
 

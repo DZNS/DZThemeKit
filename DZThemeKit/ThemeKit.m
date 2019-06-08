@@ -56,13 +56,11 @@ NSNotificationName const ThemeDidUpdate = @"com.dezinezync.themekit.didUpdateNot
 
 #pragma mark - Instance Methods
 
-- (Theme *)loadColorsFromFile:(NSURL *)path
-{
+- (Theme *)loadColorsFromFile:(NSURL *)path {
     return [self loadColorsFromFile:path forDark:NO];
 }
 
-- (Theme *)loadColorsFromFile:(NSURL *)path forDark:(BOOL)forDark
-{
+- (Theme *)loadColorsFromFile:(NSURL *)path forDark:(BOOL)forDark {
     
     if(!path)
         return nil;
@@ -92,8 +90,9 @@ NSNotificationName const ThemeDidUpdate = @"com.dezinezync.themekit.didUpdateNot
         }
         else if ([obj isKindOfClass:NSDictionary.class] && [key containsString:@"Color"]) {
             NSDictionary *subdict = obj;
+            
             if (![subdict valueForKey:@"rgb"])
-            return;
+                return;
             
             NSMutableDictionary *setDict = @{}.mutableCopy;
             
@@ -145,7 +144,55 @@ NSNotificationName const ThemeDidUpdate = @"com.dezinezync.themekit.didUpdateNot
          
             // we don't want this to throw an error since the main objective has been achieved.
             @try {
-                __unused Theme *dark = [self loadColorsFromFile:[NSURL URLWithString:pathStr] forDark:YES];
+                Theme *dark = [self loadColorsFromFile:[NSURL URLWithString:pathStr] forDark:YES];
+                
+                if (@available(iOS 13, *)) {
+                    theme.supportsDarkMode = YES;
+                    
+                    NSMutableDictionary *lightProperties = [theme valueForKeyPath:@"backingStore"];
+                    
+                   NSMutableDictionary *properties = [dark valueForKeyPath:@"backingStore"];
+                    
+                    // add keypaths to the properties as well
+                    NSArray <NSString *> *keypaths = @[@"backgroundColor", @"titleColor", @"subtitleColor", @"captionColor", @"tableColor", @"borderColor", @"tintColor"];
+                    
+                    for (NSString *keypath in keypaths) {
+                        
+                        // light theme
+                        id lightVal = [theme valueForKeyPath:keypath];
+                        
+                        id val = [dark valueForKeyPath:keypath];
+                        
+                        if (lightVal) {
+                            [lightProperties setObject:lightVal forKey:keypath];
+                        }
+                        
+                        if (val) {
+                            [properties setObject:val forKey:keypath];
+                        }
+                    }
+                    
+                    [theme setValue:lightProperties forKeyPath:@"lightBackingStore"];
+                    
+                    // being updating the dark backing store
+                    theme.updatingDarkBackingStore = YES;
+                    
+                    [properties enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+                       
+                        [theme setValue:obj forKey:key];
+                        
+                    }];
+                    
+                    // resolve all colour properties to dynamic providers
+                    NSArray <NSString *> *colorKeys = [properties.allKeys filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF ENDSWITH 'Color'"]];
+                    
+                    // end updating the dark backing store
+                    theme.updatingDarkBackingStore = NO;
+                    
+                    // update the primary backing store with dynamic colours
+                    [theme updateWithDynamicColors:colorKeys];
+                }
+                
             } @catch (NSException *exc) {}
         }
         
@@ -175,9 +222,13 @@ NSNotificationName const ThemeDidUpdate = @"com.dezinezync.themekit.didUpdateNot
 
 #pragma mark - Setters
 
-- (void)setAutoUpdatingTheme:(BOOL)autoUpdatingTheme
-{
+- (void)setAutoUpdatingTheme:(BOOL)autoUpdatingTheme {
+    
     _autoUpdatingTheme = autoUpdatingTheme;
+    
+    if (@available(iOS 13, *)) {
+        return;
+    }
     
     if (_autoUpdatingTheme) {
         

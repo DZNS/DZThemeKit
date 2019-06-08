@@ -14,6 +14,10 @@
 
 @property (nonatomic, strong) NSMutableDictionary *backingStore;
 
+@property (nonatomic, strong) NSMutableDictionary *darkBackingStore NS_AVAILABLE_IOS(13.0);
+
+@property (nonatomic, strong) NSMutableDictionary *lightBackingStore NS_AVAILABLE_IOS(13.0);
+
 @end
 
 @implementation Theme
@@ -42,6 +46,22 @@
     
 }
 
+- (void)setSupportsDarkMode:(BOOL)supportsDarkMode {
+    
+    if (_supportsDarkMode == supportsDarkMode) {
+        return;
+    }
+    
+    _supportsDarkMode = supportsDarkMode;
+    
+    if (_supportsDarkMode == YES) {
+        // as this is created only after the backingStore is created
+        // we know the exact count of items it will hold.
+        _darkBackingStore = [[NSMutableDictionary alloc] initWithCapacity:self.backingStore.allKeys.count];
+    }
+    
+}
+
 #pragma mark - KVC
 
 - (void)setValue:(id)value forKey:(NSString *)key {
@@ -57,18 +77,99 @@
         
     }
     
-    [super setValue:value forKey:key];
+    if (@available(iOS 13, *)) {
+        if (self.updatingDarkBackingStore) {
+            [self.darkBackingStore setValue:value forKey:key];
+        }
+        else {
+            [super setValue:value forKey:key];
+        }
+    }
+    else {
+        [super setValue:value forKey:key];
+    }
+    
+}
+
+- (void)setValue:(id)value forKeyPath:(NSString *)keyPath {
+    
+    if (@available(iOS 13, *)) {
+        if (self.updatingDarkBackingStore && [keyPath containsString:@"Color"]) {
+            [self.darkBackingStore setValue:value forKey:keyPath];
+        }
+        else {
+            [super setValue:value forKeyPath:keyPath];
+        }
+    }
+    else {
+        [super setValue:value forKeyPath:keyPath];
+    }
+    
+}
+
+- (id)valueForKeyPath:(NSString *)keyPath {
+    
+    if (@available(iOS 13, *)) {
+        
+        if (self.supportsDarkMode && UIApplication.sharedApplication.keyWindow.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark && [keyPath containsString:@"color"]) {
+            return [self.darkBackingStore valueForKey:keyPath];
+        }
+        
+    }
+    
+    return [super valueForKeyPath:keyPath];
+    
+}
+
+- (id)valueForKey:(NSString *)key {
+    
+    if (@available(iOS 13, *)) {
+        
+        if (self.supportsDarkMode == YES && UIApplication.sharedApplication.keyWindow.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark && [key containsString:@"color"]) {
+            return [self.darkBackingStore valueForKey:key];
+        }
+        
+    }
+    
+    return [super valueForKey:key];
     
 }
 
 - (void)setValue:(id)value forUndefinedKey:(nonnull NSString *)key {
     
-    [self.backingStore setValue:value forKey:key];
+    if (@available(iOS 13, *)) {
+        if (self.updatingDarkBackingStore) {
+            [self.darkBackingStore setValue:value forKey:key];
+        }
+    }
+    else {
+        [self.backingStore setValue:value forKey:key];
+    }
     
 }
 
 - (id)valueForUndefinedKey:(NSString *)key {
-    id val = [self.backingStore valueForKey:key];
+    
+    id val = nil;
+    
+    if (@available(iOS 13, *)) {
+        
+        if (self.supportsDarkMode == YES) {
+            if (UIApplication.sharedApplication.keyWindow.traitCollection.userInterfaceStyle == UIUserInterfaceStyleLight) {
+                val = [self.backingStore valueForKey:key];
+            }
+            else {
+                val = [self.darkBackingStore valueForKey:key];
+            }
+        }
+        else {
+            val = [self.backingStore valueForKey:key];
+        }
+        
+    }
+    else {
+        val = [self.backingStore valueForKey:key];
+    }
     
     if (([key containsString:@"Color"] || [key containsString:@"Colour"]) && [val isKindOfClass:NSDictionary.class]) {
         if ([UIApplication.sharedApplication.windows firstObject].traitCollection.displayGamut == UIDisplayGamutP3) {
@@ -114,6 +215,41 @@
     }
     
     return 0.f;
+    
+}
+
+#pragma mark -
+
+- (void)updateWithDynamicColors:(NSArray <NSString *> *)colorKeys {
+    
+    if (colorKeys == nil || colorKeys.count == 0) {
+        return;
+    }
+    
+    if (self.supportsDarkMode == NO) {
+        return;
+    }
+    
+    [colorKeys enumerateObjectsUsingBlock:^(NSString * _Nonnull key, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        UIColor *color = [UIColor colorWithDynamicProvider:^UIColor * _Nonnull(UITraitCollection * _Nonnull traitCollection) {
+            
+            if (traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
+                return [self.darkBackingStore valueForKey:key];
+            }
+            
+            return [self.lightBackingStore valueForKey:key];
+                
+        }];
+        
+        if ([self valueForKeyPath:key] != nil) {
+            [self setValue:color forKeyPath:key];
+        }
+        else {
+            [self.backingStore setValue:color forKey:key];
+        }
+        
+    }];
     
 }
 
