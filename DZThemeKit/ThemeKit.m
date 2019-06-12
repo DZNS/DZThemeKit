@@ -43,12 +43,13 @@ NSNotificationName const ThemeDidUpdate = @"com.dezinezync.themekit.didUpdateNot
     if (self = [super init]) {
         
         self.themes = @[];
-        
+#ifdef DEBUG
         NSBundle *classBundle = [NSBundle bundleForClass:self.class];
         NSString *path = [classBundle pathForResource:@"colours" ofType:@"json"];
-        
+
         NSURL *url = [NSURL URLWithString:path];
         [self loadColorsFromFile:url];
+#endif
     }
     
     return self;
@@ -125,10 +126,23 @@ NSNotificationName const ThemeDidUpdate = @"com.dezinezync.themekit.didUpdateNot
         
     }];
     
-    self.themes = [self.themes arrayByAddingObject:theme];
-    
-    if (!self.theme) {
-        self.theme = [self.themes lastObject];
+    if (@available(iOS 13, *)) {
+        
+        if (forDark == NO) {
+            self.themes = [self.themes arrayByAddingObject:theme];
+            
+            if (!self.theme) {
+                self.theme = [self.themes lastObject];
+            }
+        }
+        
+    }
+    else {
+        self.themes = [self.themes arrayByAddingObject:theme];
+        
+        if (!self.theme) {
+            self.theme = [self.themes lastObject];
+        }
     }
     
     // if there's a dark theme with the same name, load it as well.
