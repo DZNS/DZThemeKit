@@ -1,14 +1,11 @@
 {
-    "backgroundColor": "#000000",
-    "subtitleColor": "#FFFFFF92",
-    "captionColor": "#FFFFFF50",
-    "titleColor": "#FFF",
-    "borderColor": "#FFFFFF12",
-    "tableColor": "#000000",
-    "tintColor": {
-        "rgb": "#2979FF",
-        "p3": true
-    },
-    "customColor": "#440755",
-    "borderDepth": 1.00
+    "backgroundColor": "systemBackgroundColor",
+    "titleColor": "labelColor",
+    "subtitleColor": "secondaryLabelColor",
+    "captionColor": "tertiaryLabelColor",
+    "borderColor": "separatorColor",
+    "tableColor": "systemBackgroundColor",
+    "tintColor": "systemRedColor",
+    "customColor": "#EE0755",
+    "borderDepth": 2.00
 }

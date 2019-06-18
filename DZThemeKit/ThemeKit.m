@@ -85,9 +85,28 @@ NSNotificationName const ThemeDidUpdate = @"com.dezinezync.themekit.didUpdateNot
     [dict enumerateKeysAndObjectsUsingBlock:^(NSString *  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
        
         if ([obj isKindOfClass:NSString.class] && [key containsString:@"Color"]) {
-            UIColor *color = [UIColor colorFromHex:obj];
             
-            [theme setValue:color forKey:key];
+            UIColor *systemColor = nil;
+            UIColor *color = nil;
+            
+            @try {
+                systemColor = [UIColor valueForKeyPath:obj];
+            }
+            @catch (NSException *exc) {}
+            @finally {
+                
+                // check if it is a system colour name
+                if (systemColor == nil) {
+                    color = [UIColor colorFromHex:obj];
+                }
+                else {
+                    color = systemColor;
+                }
+                
+                [theme setValue:color forKey:key];
+                
+            }
+        
         }
         else if ([obj isKindOfClass:NSDictionary.class] && [key containsString:@"Color"]) {
             NSDictionary *subdict = obj;

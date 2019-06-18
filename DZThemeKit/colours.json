@@ -1,14 +1,11 @@
 {
-    "backgroundColor": "#F8F9F9",
-    "subtitleColor": "#00000087",
-    "captionColor": "#00000054",
-    "titleColor": "#000000",
-    "borderColor": "#00000012",
-    "tableColor": "#FFFFFF",
-    "tintColor": {
-        "rgb": "#2979FF",
-        "p3": true
-    },
+    "backgroundColor": "systemBackgroundColor",
+    "titleColor": "labelColor",
+    "subtitleColor": "secondaryLabelColor",
+    "captionColor": "tertiaryLabelColor",
+    "borderColor": "separatorColor",
+    "tableColor": "systemBackgroundColor",
+    "tintColor": "systemBlueColor",
     "customColor": "#EE0755",
     "borderDepth": 2.00
 }
