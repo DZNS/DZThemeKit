@@ -84,20 +84,29 @@ NSNotificationName const ThemeDidUpdate = @"com.dezinezync.themekit.didUpdateNot
     
     [dict enumerateKeysAndObjectsUsingBlock:^(NSString *  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
        
-        if ([obj isKindOfClass:NSString.class] && [key containsString:@"Color"]) {
+        if (([obj isKindOfClass:NSString.class] || [obj isKindOfClass:NSArray.class]) && [key containsString:@"Color"]) {
             
             UIColor *systemColor = nil;
             UIColor *color = nil;
             
+            BOOL isArray = [obj isKindOfClass:NSArray.class];
+            
             @try {
-                systemColor = [UIColor valueForKeyPath:obj];
+                // check if it is a system colour name
+                systemColor = [UIColor valueForKeyPath:(isArray ? [(NSArray *)obj firstObject] : obj)];
             }
             @catch (NSException *exc) {}
             @finally {
                 
-                // check if it is a system colour name
                 if (systemColor == nil) {
-                    color = [UIColor colorFromHex:obj];
+                    
+                    if (isArray) {
+                        color = [UIColor colorFromHex:[(NSArray *)obj lastObject] p3:YES];
+                    }
+                    else {
+                        color = [UIColor colorFromHex:obj];
+                    }
+                    
                 }
                 else {
                     color = systemColor;
@@ -183,7 +192,7 @@ NSNotificationName const ThemeDidUpdate = @"com.dezinezync.themekit.didUpdateNot
                     
                     NSMutableDictionary *lightProperties = [theme valueForKeyPath:@"backingStore"];
                     
-                   NSMutableDictionary *properties = [dark valueForKeyPath:@"backingStore"];
+                    NSMutableDictionary *properties = [dark valueForKeyPath:@"backingStore"];
                     
                     // add keypaths to the properties as well
                     NSArray <NSString *> *keypaths = @[@"backgroundColor", @"titleColor", @"subtitleColor", @"captionColor", @"tableColor", @"borderColor", @"tintColor"];

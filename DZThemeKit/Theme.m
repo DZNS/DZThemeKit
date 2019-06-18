@@ -232,15 +232,30 @@
     
     [colorKeys enumerateObjectsUsingBlock:^(NSString * _Nonnull key, NSUInteger idx, BOOL * _Nonnull stop) {
         
-        UIColor *color = [UIColor colorWithDynamicProvider:^UIColor * _Nonnull(UITraitCollection * _Nonnull traitCollection) {
+        UIColor *lightColor = [self.lightBackingStore valueForKey:key];
+        UIColor *darkColor  = [self.darkBackingStore valueForKey:key];
+        
+        // if both are UIDynamicSystemColors, then use the light variant instead of creating an instance ourseleves
+        UIColor *color = nil;
+        Class classToCheck = NSClassFromString(@"UIDynamicSystemColor");
+        
+        if (lightColor != nil && [lightColor isKindOfClass:classToCheck]
+            && darkColor != nil && [darkColor isKindOfClass:classToCheck]) {
             
-            if (traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
-                return [self.darkBackingStore valueForKey:key];
-            }
+            color = lightColor;
             
-            return [self.lightBackingStore valueForKey:key];
+        }
+        else {
+            color = [UIColor colorWithDynamicProvider:^UIColor * _Nonnull(UITraitCollection * _Nonnull traitCollection) {
                 
-        }];
+                if (traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
+                    return [self.darkBackingStore valueForKey:key];
+                }
+                
+                return [self.lightBackingStore valueForKey:key];
+                
+            }];
+        }
         
         if ([self valueForKeyPath:key] != nil) {
             [self setValue:color forKeyPath:key];

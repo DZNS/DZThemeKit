@@ -1,11 +1,11 @@
 {
-    "backgroundColor": "systemBackgroundColor",
-    "titleColor": "labelColor",
-    "subtitleColor": "secondaryLabelColor",
-    "captionColor": "tertiaryLabelColor",
-    "borderColor": "separatorColor",
-    "tableColor": "systemBackgroundColor",
-    "tintColor": "systemRedColor",
+    "backgroundColor": ["systemBackgroundColor", "#000000"],
+    "titleColor": ["labelColor", "#ffffff"],
+    "subtitleColor": ["secondaryLabelColor", "#EBEBF560"],
+    "captionColor": ["tertiaryLabelColor", "#EBEBF530"],
+    "borderColor": ["separatorColor", "#D9D9D930"],
+    "tableColor": ["systemBackgroundColor", "#000000"],
+    "tintColor": ["systemRedColor", "#FF453A"],
     "customColor": "#EE0755",
     "borderDepth": 2.00
 }
