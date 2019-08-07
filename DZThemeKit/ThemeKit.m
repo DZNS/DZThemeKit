@@ -91,9 +91,19 @@ NSNotificationName const ThemeDidUpdate = @"com.dezinezync.themekit.didUpdateNot
             
             BOOL isArray = [obj isKindOfClass:NSArray.class];
             
+            BOOL possiblySystemColor = YES;
+            
+            if (isArray == NO && [obj isKindOfClass:NSString.class]) {
+                possiblySystemColor = [(NSString *)obj containsString:@"system"];
+            }
+            
             @try {
                 // check if it is a system colour name
-                systemColor = [UIColor valueForKeyPath:(isArray ? [(NSArray *)obj firstObject] : obj)];
+                
+                if (possiblySystemColor) {
+                    systemColor = [UIColor valueForKeyPath:(isArray ? [(NSArray *)obj firstObject] : obj)];
+                }
+                
             }
             @catch (NSException *exc) {}
             @finally {
@@ -235,9 +245,10 @@ NSNotificationName const ThemeDidUpdate = @"com.dezinezync.themekit.didUpdateNot
                     
                     // end updating the dark backing store
                     theme.updatingDarkBackingStore = NO;
-                    
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
                     // update the primary backing store with dynamic colours
                     [theme updateWithDynamicColors:colorKeys];
+#endif
                 }
                 
             } @catch (NSException *exc) {}

@@ -220,6 +220,7 @@
 
 #pragma mark -
 
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
 - (void)updateWithDynamicColors:(NSArray <NSString *> *)colorKeys {
     
     if (colorKeys == nil || colorKeys.count == 0) {
@@ -267,5 +268,6 @@
     }];
     
 }
+#endif
 
 @end

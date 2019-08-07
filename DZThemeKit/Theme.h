@@ -53,6 +53,8 @@
 // to be implemented by subclasses
 @property (nonatomic, strong, readonly) NSArray <NSString *> * _Nullable additionalKeyPaths NS_AVAILABLE_IOS(13.0);
 
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
 - (void)updateWithDynamicColors:(NSArray <NSString *> * _Nonnull)colorKeys NS_AVAILABLE_IOS(13.0);
+#endif
 
 @end
