@@ -33,7 +33,23 @@
 - (void)updateAppearances {
     
     if (self.tintColor) {
-        [UIApplication.sharedApplication.keyWindow setTintColor:self.tintColor];
+        
+        NSSet <UIScene *> * scenes = UIApplication.sharedApplication.connectedScenes;
+        
+        for (UIScene *scene in scenes) {
+            
+            if ([scene isKindOfClass:UIWindowScene.class] == YES) {
+                
+                UIWindow *window = [(id<UIWindowSceneDelegate>)[(UIWindowScene *)scene delegate] window];
+                
+                if (window != nil) {
+                    window.tintColor = self.tintColor;
+                }
+                
+            }
+            
+        }
+    
     }
     
     if (self.tableColor) {
