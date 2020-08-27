@@ -84,20 +84,39 @@ NSNotificationName const ThemeDidUpdate = @"com.dezinezync.themekit.didUpdateNot
     
     [dict enumerateKeysAndObjectsUsingBlock:^(NSString *  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
        
-        if ([obj isKindOfClass:NSString.class] && [key containsString:@"Color"]) {
+        if (([obj isKindOfClass:NSString.class] || [obj isKindOfClass:NSArray.class]) && [key containsString:@"Color"]) {
             
             UIColor *systemColor = nil;
             UIColor *color = nil;
             
+            BOOL isArray = [obj isKindOfClass:NSArray.class];
+            
+            BOOL possiblySystemColor = YES;
+            
+            if (isArray == NO && [obj isKindOfClass:NSString.class]) {
+                possiblySystemColor = [(NSString *)obj containsString:@"system"];
+            }
+            
             @try {
-                systemColor = [UIColor valueForKeyPath:obj];
+                // check if it is a system colour name
+                
+                if (possiblySystemColor) {
+                    systemColor = [UIColor valueForKeyPath:(isArray ? [(NSArray *)obj firstObject] : obj)];
+                }
+                
             }
             @catch (NSException *exc) {}
             @finally {
                 
-                // check if it is a system colour name
                 if (systemColor == nil) {
-                    color = [UIColor colorFromHex:obj];
+                    
+                    if (isArray) {
+                        color = [UIColor colorFromHex:[(NSArray *)obj lastObject] p3:YES];
+                    }
+                    else {
+                        color = [UIColor colorFromHex:obj];
+                    }
+                    
                 }
                 else {
                     color = systemColor;
@@ -183,7 +202,7 @@ NSNotificationName const ThemeDidUpdate = @"com.dezinezync.themekit.didUpdateNot
                     
                     NSMutableDictionary *lightProperties = [theme valueForKeyPath:@"backingStore"];
                     
-                   NSMutableDictionary *properties = [dark valueForKeyPath:@"backingStore"];
+                    NSMutableDictionary *properties = [dark valueForKeyPath:@"backingStore"];
                     
                     // add keypaths to the properties as well
                     NSArray <NSString *> *keypaths = @[@"backgroundColor", @"titleColor", @"subtitleColor", @"captionColor", @"tableColor", @"borderColor", @"tintColor"];
@@ -226,9 +245,10 @@ NSNotificationName const ThemeDidUpdate = @"com.dezinezync.themekit.didUpdateNot
                     
                     // end updating the dark backing store
                     theme.updatingDarkBackingStore = NO;
-                    
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
                     // update the primary backing store with dynamic colours
                     [theme updateWithDynamicColors:colorKeys];
+#endif
                 }
                 
             } @catch (NSException *exc) {}

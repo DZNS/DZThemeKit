@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "F06A6F851FB0698900D3A819"
-               BuildableName = "DZThemeKit.framework"
-               BlueprintName = "DZThemeKit"
+               BlueprintIdentifier = "F06A6FB11FB07FCF00D3A819"
+               BuildableName = "ThemeKitTestApp.app"
+               BlueprintName = "ThemeKitTestApp"
                ReferencedContainer = "container:DZThemeKit.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -28,16 +28,6 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "F06A6F8E1FB0698900D3A819"
-               BuildableName = "DZThemeKitTests.xctest"
-               BlueprintName = "DZThemeKitTests"
-               ReferencedContainer = "container:DZThemeKit.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
@@ -50,15 +40,16 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "F06A6F851FB0698900D3A819"
-            BuildableName = "DZThemeKit.framework"
-            BlueprintName = "DZThemeKit"
+            BlueprintIdentifier = "F06A6FB11FB07FCF00D3A819"
+            BuildableName = "ThemeKitTestApp.app"
+            BlueprintName = "ThemeKitTestApp"
             ReferencedContainer = "container:DZThemeKit.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -66,15 +57,16 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "F06A6F851FB0698900D3A819"
-            BuildableName = "DZThemeKit.framework"
-            BlueprintName = "DZThemeKit"
+            BlueprintIdentifier = "F06A6FB11FB07FCF00D3A819"
+            BuildableName = "ThemeKitTestApp.app"
+            BlueprintName = "ThemeKitTestApp"
             ReferencedContainer = "container:DZThemeKit.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
